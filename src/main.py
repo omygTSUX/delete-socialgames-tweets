@@ -10,14 +10,16 @@ def main():
     ats = config.ACCESS_TOKEN_SECRET
     my_session = OAuth1Session(ck, cs, at, ats)
 
-    # search(search_words, my_session)
-    # get_timeline(my_session)
+    # tweets = search(search_words, my_session)
+    tweets = get_timeline(my_session)
+    delete_gbf_tweets(tweets, my_session)
     # post_tweet("テスト", my_session)
 
 
 # ツイート検索
 def search(words, session):
     url = "https://api.twitter.com/1.1/search/tweets.json"
+    search_result = []
     for word in words:
         params = {'q':  word, 'count': 100}
 
@@ -25,11 +27,11 @@ def search(words, session):
 
         if req.status_code == 200:
             search_timeline = json.loads(req.text)
-            for tweet in search_timeline['statuses']:
-                # do something
-                    delete_tweet(tweet, session)
+            search_result.append(search_timeline)
+
         else:
             print("ERROR: %d" % req.status_code)
+        return search_result
 
 
 # 自分のツイート取得
@@ -41,12 +43,18 @@ def get_timeline(session):
 
     if req.status_code == 200:
         timeline = json.loads(req.text)
-        for tweet in timeline:
-            # do something
-            if tweet['source'] == source_string:
-                delete_tweet(tweet, session)
+        return timeline
     else:
         print("ERROR: %d" % req.status_code)
+        exit()
+
+
+# グラブルから送信されたツイートの削除
+def delete_gbf_tweets(tweets, session):
+    for tweet in tweets:
+        # do something
+        if tweet['source'] == source_string:
+            delete_tweet(tweet, session)
 
 
 # 指定したツイートの削除
