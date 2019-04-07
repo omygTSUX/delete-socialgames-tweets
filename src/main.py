@@ -12,9 +12,10 @@ def main():
 
     # search(search_words, my_session)
     # get_timeline(my_session)
-    post_tweet("テストツイット2", my_session)
+    # post_tweet("テスト", my_session)
 
 
+# ツイート検索
 def search(words, session):
     url = "https://api.twitter.com/1.1/search/tweets.json"
     for word in words:
@@ -31,6 +32,7 @@ def search(words, session):
             print("ERROR: %d" % req.status_code)
 
 
+# 自分のツイート取得
 def get_timeline(session):
     url = "https://api.twitter.com/1.1/statuses/user_timeline.json"
 
@@ -47,6 +49,7 @@ def get_timeline(session):
         print("ERROR: %d" % req.status_code)
 
 
+# 指定したツイートの削除
 def delete_tweet(tweet, session):
     url = "https://api.twitter.com/1.1/statuses/destroy/"+tweet['id_str']+".json"
     req = session.post(url)
@@ -56,6 +59,7 @@ def delete_tweet(tweet, session):
         print("ERROR: %d" % req.status_code)
 
 
+# ツイートをする
 def post_tweet(sentence, session):
     url = "https://api.twitter.com/1.1/statuses/update.json"
 
