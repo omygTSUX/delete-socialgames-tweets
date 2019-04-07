@@ -1,2 +1,3 @@
 # delete_my_tweets
-delete my tweets from social games
+The program deletes my tweets from social games.
+It need config.py which contents Twitter API keys in src directory.
