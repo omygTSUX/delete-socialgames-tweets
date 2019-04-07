@@ -9,6 +9,7 @@ def main():
     cs = os.environ['CONSUMER_SECRET']
     at = os.environ['ACCESS_TOKEN']
     ats = os.environ['ACCESS_TOKEN_SECRET']
+    print(ck, cs, at, ats)
     my_session = OAuth1Session(ck, cs, at, ats)
 
     # result = search(search_words, my_session)
