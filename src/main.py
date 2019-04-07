@@ -1,13 +1,14 @@
 # -*- coding:utf-8 -*-
-import json, config
+import json
+import sys
 from requests_oauthlib import OAuth1Session
 
 
-def main():
-    ck = config.CONSUMER_KEY
-    cs = config.CONSUMER_SECRET
-    at = config.ACCESS_TOKEN
-    ats = config.ACCESS_TOKEN_SECRET
+def main(argv):
+    ck = argv[1]
+    cs = argv[2]
+    at = argv[3]
+    ats = argv[4]
     my_session = OAuth1Session(ck, cs, at, ats)
 
     # result = search(search_words, my_session)
@@ -91,4 +92,4 @@ def post_tweet(sentence, session):
 if __name__ == "__main__":
     source_string = "<a href=\"http://granbluefantasy.jp/\" rel=\"nofollow\">グランブルー ファンタジー</a>"
     search_words = ["スマホRPG", "参加者募集", "#みんなで早押しクイズ"]
-    main()
+    main(sys.argv)
