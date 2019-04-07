@@ -10,7 +10,8 @@ def main():
     ats = config.ACCESS_TOKEN_SECRET
     my_session = OAuth1Session(ck, cs, at, ats)
 
-    # tweets = search(search_words, my_session)
+    # result = search(search_words, my_session)
+    # delete_auto_tweets(result, my_session)
     tweets = get_timeline(my_session)
     delete_gbf_tweets(tweets, my_session)
     # post_tweet("テスト", my_session)
@@ -52,8 +53,14 @@ def get_timeline(session):
 # グラブルから送信されたツイートの削除
 def delete_gbf_tweets(tweets, session):
     for tweet in tweets:
-        # do something
         if tweet['source'] == source_string:
+            delete_tweet(tweet, session)
+
+
+# 検索結果のツイートをすべて削除
+def delete_auto_tweets(result, session):
+    for tweets in result:
+        for tweet in tweets:
             delete_tweet(tweet, session)
 
 
