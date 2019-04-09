@@ -1,6 +1,7 @@
 # -*- coding:utf-8 -*-
 import json
 import os
+import sys
 from requests_oauthlib import OAuth1Session
 
 
@@ -110,7 +111,7 @@ def read_search_words(txt_path):
 
 
 if __name__ == "__main__":
-    words_txt_path = '../data/words.txt'
+    words_txt_path = sys.argv[1]
     search_words, source_strings = read_search_words(words_txt_path)
     # source_strings = ["<a href=\"http://granbluefantasy.jp/\" rel=\"nofollow\">グランブルー ファンタジー</a>"]
     # search_words = ["スマホRPG", "参加者募集", "#みんなで早押しクイズ"]
