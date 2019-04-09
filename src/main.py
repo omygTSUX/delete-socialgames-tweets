@@ -54,7 +54,7 @@ def get_timeline(session):
 # グラブルから送信されたツイートの削除
 def delete_gbf_tweets(tweets, session):
     for tweet in tweets:
-        if tweet['source'] == source_string:
+        if tweet['source'] in source_strings:
             delete_tweet(tweet, session)
 
 
@@ -89,7 +89,31 @@ def post_tweet(sentence, session):
         print("ERROR : %d" % req.status_code)
 
 
+# 検索文字列ファイルの読み込み
+def read_search_words(txt_path):
+    with open(txt_path, 'r') as f:
+        text_list = f.read().split('\n')
+        search_words_list = []
+        source_strings_list = []
+        mode = 0
+        for s in text_list:
+            if s == 'search_words':
+                mode = 0
+            elif s == 'source_strings':
+                mode = 1
+            elif mode == 0:
+                search_words_list.append(s)
+            elif mode == 1:
+                source_strings_list.append(s)
+
+    return search_words_list, source_strings_list
+
+
 if __name__ == "__main__":
-    source_string = "<a href=\"http://granbluefantasy.jp/\" rel=\"nofollow\">グランブルー ファンタジー</a>"
-    search_words = ["スマホRPG", "参加者募集", "#みんなで早押しクイズ"]
+    words_txt_path = '../data/words.txt'
+    search_words, source_strings = read_search_words(words_txt_path)
+    # source_strings = ["<a href=\"http://granbluefantasy.jp/\" rel=\"nofollow\">グランブルー ファンタジー</a>"]
+    # search_words = ["スマホRPG", "参加者募集", "#みんなで早押しクイズ"]
+    print(search_words)
+    print(source_strings)
     main()
