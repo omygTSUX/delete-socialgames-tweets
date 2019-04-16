@@ -25,6 +25,7 @@ def search(id_str, words, session):
     url = "https://api.twitter.com/1.1/search/tweets.json"
     search_result = []
     for word in words:
+        print(word+" from:"+id_str)
         params = {'q':  word+" from:"+id_str, 'count': 100}
 
         req = session.get(url, params=params)
