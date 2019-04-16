@@ -36,7 +36,7 @@ def search(id_str, words, session):
 
         else:
             print("ERROR: %d" % req.status_code)
-        return search_result
+    return search_result
 
 
 # 自分のツイート取得
