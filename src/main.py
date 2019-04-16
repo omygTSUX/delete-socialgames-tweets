@@ -10,21 +10,22 @@ def main():
     cs = os.environ['CONSUMER_SECRET']
     at = os.environ['ACCESS_TOKEN']
     ats = os.environ['ACCESS_TOKEN_SECRET']
+    my_id = os.environ['MY_ID']
     my_session = OAuth1Session(ck, cs, at, ats)
 
-    # result = search(search_words, my_session)
-    # delete_auto_tweets(result, my_session)
+    result = search(my_id, search_words, my_session)
+    delete_auto_tweets(result, my_session)
     tweets = get_timeline(my_session)
     delete_gbf_tweets(tweets, my_session)
     # post_tweet("テスト", my_session)
 
 
 # ツイート検索
-def search(words, session):
+def search(id_str, words, session):
     url = "https://api.twitter.com/1.1/search/tweets.json"
     search_result = []
     for word in words:
-        params = {'q':  word, 'count': 100}
+        params = {'q':  word+" from:"+id_str, 'count': 100}
 
         req = session.get(url, params=params)
 
@@ -113,8 +114,6 @@ def read_search_words(txt_path):
 if __name__ == "__main__":
     words_txt_path = sys.argv[1]
     search_words, source_strings = read_search_words(words_txt_path)
-    # source_strings = ["<a href=\"http://granbluefantasy.jp/\" rel=\"nofollow\">グランブルー ファンタジー</a>"]
-    # search_words = ["スマホRPG", "参加者募集", "#みんなで早押しクイズ"]
     print(search_words)
     print(source_strings)
     main()
