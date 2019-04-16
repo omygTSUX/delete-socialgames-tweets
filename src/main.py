@@ -13,8 +13,8 @@ def main():
     my_id = os.environ['MY_ID']
     my_session = OAuth1Session(ck, cs, at, ats)
 
-    result = search(my_id, search_words, my_session)
-    delete_auto_tweets(result, my_session)
+    # result = search(my_id, search_words, my_session)
+    # delete_auto_tweets(result, my_session)
     tweets = get_timeline(my_session)
     delete_gbf_tweets(tweets, my_session)
     # post_tweet("テスト", my_session)
