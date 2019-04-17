@@ -13,8 +13,8 @@ def main():
     my_id = os.environ['MY_ID']
     my_session = OAuth1Session(ck, cs, at, ats)
 
-    # result = search(my_id, search_words, my_session)
-    # delete_auto_tweets(result, my_session)
+    tweets = search(my_id, search_words, my_session)
+    delete_auto_tweets(tweets, my_session)
     tweets = get_timeline(my_session)
     delete_gbf_tweets(tweets, my_session)
     # post_tweet("テスト", my_session)
@@ -23,20 +23,22 @@ def main():
 # ツイート検索
 def search(id_str, words, session):
     url = "https://api.twitter.com/1.1/search/tweets.json"
-    search_result = []
+
+    query = ""
     for word in words:
-        print(word+" from:"+id_str)
-        params = {'q':  word+" from:"+id_str, 'count': 100}
+        query += word + " OR "
+    query = query[:-3] + "from:" + id_str
 
-        req = session.get(url, params=params)
+    params = {'q':  query, 'count': 100}
 
-        if req.status_code == 200:
-            search_timeline = json.loads(req.text)
-            search_result.append(search_timeline)
+    req = session.get(url, params=params)
 
-        else:
-            print("ERROR: %d" % req.status_code)
-    return search_result
+    if req.status_code == 200:
+        search_timeline = json.loads(req.text)
+
+    else:
+        print("ERROR: %d" % req.status_code)
+    return search_timeline
 
 
 # 自分のツイート取得
@@ -62,11 +64,9 @@ def delete_gbf_tweets(tweets, session):
 
 
 # 検索結果のツイートをすべて削除
-def delete_auto_tweets(result, session):
-    for tweets in result:
-        for tweet in tweets:
-            print(tweet)
-            delete_tweet(tweet, session)
+def delete_auto_tweets(tweets, session):
+    for tweet in tweets:
+        delete_tweet(tweet, session)
 
 
 # 指定したツイートの削除
