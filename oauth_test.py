@@ -63,5 +63,3 @@ def check_token():
         authorize_url = '%s?oauth_token=%s' % (authenticate_url, request_token)
         print(authorize_url)
         return render_template('cer.html',url=authorize_url,res="NoParams")
-
-app.run(debug=True)
