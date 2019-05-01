@@ -65,3 +65,5 @@ def check_token():
         return render_template('cer.html',url=authorize_url,res="NoParams")
 
 
+if __name__ == '__main__':
+    app.run()
