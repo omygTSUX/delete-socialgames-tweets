@@ -5,7 +5,7 @@ from flask import Flask, render_template, request, jsonify
 from jinja2 import FileSystemLoader
 
 app = Flask(__name__)
-app.jinja_loader = FileSystemLoader('hoge_dir')
+
 
 request_token_url = 'https://twitter.com/oauth/request_token'
 access_token_url = 'https://twitter.com/oauth/access_token'
