@@ -1,1 +1,1 @@
-web: python src/oauth_test.py
+web: gunicorn delete-socialgames-tweets:app --log-file -

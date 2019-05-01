@@ -65,4 +65,3 @@ def check_token():
         return render_template('cer.html',url=authorize_url,res="NoParams")
 
 
-app.run(debug=True)
