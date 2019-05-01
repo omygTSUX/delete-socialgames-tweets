@@ -63,7 +63,3 @@ def check_token():
         authorize_url = '%s?oauth_token=%s' % (authenticate_url, request_token)
         print(authorize_url)
         return render_template('cer.html',url=authorize_url,res="NoParams")
-
-
-if __name__ == '__main__':
-    app.run()
