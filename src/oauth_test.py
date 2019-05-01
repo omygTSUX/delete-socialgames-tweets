@@ -10,7 +10,7 @@ app = Flask(__name__)
 request_token_url = 'https://twitter.com/oauth/request_token'
 access_token_url = 'https://twitter.com/oauth/access_token'
 authenticate_url = 'https://twitter.com/oauth/authorize'
-callback_url = 'https://delete-socialgames-tweets.herokuapp.com/'
+callback_url = 'https://delete-socialgames-tweets.herokuapp.com'
 consumer_key = os.environ['CONSUMER_KEY']
 consumer_secret = os.environ['CONSUMER_SECRET']
 
