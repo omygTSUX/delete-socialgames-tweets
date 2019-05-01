@@ -3,5 +3,6 @@ search_words
 参加者募集
 #みんなで早押しクイズ
 #本田とじゃんけん
+#どこパレマルチ
 source_strings
 <a href="http://granbluefantasy.jp/" rel="nofollow">グランブルー ファンタジー</a>
