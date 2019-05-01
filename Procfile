@@ -1,1 +1,1 @@
-web: gunicorn oauth_test:app --log-file -
+web: gunicorn get_access_token:app --log-file -

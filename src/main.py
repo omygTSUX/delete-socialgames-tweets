@@ -113,9 +113,9 @@ def read_search_words(txt_path):
     return search_words_list, source_strings_list
 
 
-'''if __name__ == "__main__":
+if __name__ == "__main__":
     words_txt_path = sys.argv[1]
     search_words, source_strings = read_search_words(words_txt_path)
     print(search_words)
     print(source_strings)
-    main()'''
+    main()
