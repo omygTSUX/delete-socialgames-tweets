@@ -23,7 +23,6 @@ def main():
             continue
         print(screen_name)
         cur2.execute("update token set screen_name = %s where id = %s", (screen_name, row['id']))
-        cur2.commit()
         # result = search(screen_name, search_words, session)
         # delete_auto_tweets(result, session)
         tweets = get_timeline(session)
