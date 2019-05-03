@@ -17,12 +17,13 @@ def main():
         at = row['access_token']
         ats = row['access_token_secret']
         session = OAuth1Session(ck, cs, at, ats)
-        screen_name = get_user_screen_name(session)
+        # screen_name = get_user_screen_name(session)
 
-        result = search(screen_name, search_words, session)
-        delete_auto_tweets(result, session)
+        # result = search(screen_name, search_words, session)
+        # delete_auto_tweets(result, session)
         tweets = get_timeline(session)
         delete_gbf_tweets(tweets, session)
+        delete_selected_tweets(tweets, session)
         # post_tweet("テスト", my_session)
     conn.commit()
 
@@ -79,6 +80,16 @@ def delete_gbf_tweets(tweets, session):
     for tweet in tweets:
         if tweet['source'] in source_strings:
             delete_tweet(tweet, session)
+
+
+# 対象文字列が含まれるツイートを削除
+def delete_selected_tweets(tweets, session):
+    for tweet in tweets:
+        for word in search_words:
+            if word in tweet['text']:
+                print(tweet['text'])
+                delete_tweet(tweet, session)
+                break
 
 
 # 検索結果のツイートをすべて削除
