@@ -12,6 +12,7 @@ def main():
     db_url = os.environ['DATABASE_URL']
     conn = psycopg2.connect(db_url, sslmode='require')
     cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+    cur2 = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
     cur.execute("select * from token")
     for row in cur:
         at = row['access_token']
@@ -21,7 +22,8 @@ def main():
         if screen_name is None:
             continue
         print(screen_name)
-        cur.execute("update token set screen_name = %s where id = %s", (screen_name, row['id']))
+        cur2.execute("update token set screen_name = %s where id = %s", (screen_name, row['id']))
+        cur2.commit()
         # result = search(screen_name, search_words, session)
         # delete_auto_tweets(result, session)
         tweets = get_timeline(session)
