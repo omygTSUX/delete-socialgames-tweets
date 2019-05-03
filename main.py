@@ -24,7 +24,7 @@ def main():
             # result = search(screen_name, search_words, session)
             # delete_auto_tweets(result, session)
             tweets = get_timeline(session)
-            delete_gbf_tweets(tweets, session)
+            # delete_gbf_tweets(tweets, session)
             delete_selected_tweets(tweets, session)
             # post_tweet("テスト", session)
     conn.commit()
