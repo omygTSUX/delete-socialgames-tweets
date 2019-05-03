@@ -3,11 +3,18 @@ import json
 import os
 import sys
 from requests_oauthlib import OAuth1Session
+import psycopg2
 
 
 def main():
     ck = os.environ['CONSUMER_KEY']
     cs = os.environ['CONSUMER_SECRET']
+    db_url = os.environ['DATABASE_URL']
+    conn = psycopg2.connect(db_url, sslmode='require')
+    cur = conn.cursor()
+    cur.execute("select * from token")
+    for row in cur:
+        print(row)
     at = os.environ['ACCESS_TOKEN']
     ats = os.environ['ACCESS_TOKEN_SECRET']
     my_id = os.environ['MY_ID']
