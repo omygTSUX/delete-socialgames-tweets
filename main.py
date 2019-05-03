@@ -21,7 +21,7 @@ def main():
         if screen_name is None:
             continue
         print(screen_name)
-        cur.execute("update token set screen_name = %s where id = %d", (screen_name, row['id']))
+        cur.execute("update token set screen_name = %s where id = %s", (screen_name, row['id']))
         # result = search(screen_name, search_words, session)
         # delete_auto_tweets(result, session)
         tweets = get_timeline(session)
