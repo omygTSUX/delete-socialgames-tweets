@@ -1,7 +1,7 @@
 import os
 import oauth2 as oauth
 from flask import Flask, render_template, request
-
+import psycopg2
 
 app = Flask(__name__)
 
@@ -55,7 +55,11 @@ def check_token():
         response = dict(parse_qsl(response))
         oauth_token = response['oauth_token']
         oauth_token_secret = response['oauth_token_secret']
-        return render_template('cer.html', url="NoNeed",oauth_token=oauth_token, oauth_token_secret=oauth_token_secret)
+        db_url = os.environ['DATABASE_URL']
+        conn = psycopg2.connect(db_url, sslmode='require')
+        cur = conn.cursor()
+        cur.execute("insert into token values (0, %s, %s)", (oauth_token, oauth_token_secret))
+        return render_template('cer.html', url="NoNeed", oauth_token=oauth_token, oauth_token_secret=oauth_token_secret)
     else:
         # リクエストトークンを取得する
         request_token = get_request_token()
