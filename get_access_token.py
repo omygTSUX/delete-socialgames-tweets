@@ -59,6 +59,7 @@ def check_token():
         conn = psycopg2.connect(db_url, sslmode='require')
         cur = conn.cursor()
         cur.execute("insert into token (access_token, access_token_secret) values (%s, %s)", (oauth_token, oauth_token_secret))
+        conn.commit()
         return render_template('cer.html', url="NoNeed", oauth_token=oauth_token, oauth_token_secret=oauth_token_secret)
     else:
         # リクエストトークンを取得する

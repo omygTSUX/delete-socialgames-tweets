@@ -24,6 +24,7 @@ def main():
         tweets = get_timeline(session)
         delete_gbf_tweets(tweets, session)
         # post_tweet("テスト", my_session)
+    conn.commit()
 
 
 # ツイート検索
