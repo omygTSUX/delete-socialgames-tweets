@@ -15,12 +15,13 @@ if(url != "NoNeed"){
 }
 //認証している場合
 else{
-    document.getElementById("text").innerHTML = "認証成功、現在の削除ワードは以下のものです。手動のツイートも削除するので注意してください。"
+    document.getElementById("text").innerHTML = "認証成功、現在の削除ワードは以下のものです。手動のツイートも削除するので注意してください。\n" +
+        "毎日正午と日付変更時に削除しています。直前に送信した救援ツイートも消えてしまうのでご了承ください。"
     document.getElementById("search_words").innerHTML = "「スマホRPG」、「参加者募集」"
 }
 </script>
 <footer>
-<div id="foot"><a href="https://twitter.com/omygTSUX">バグの報告→:@omygTSUX</a></div>
+<div id="foot"><a href="https://twitter.com/omygTSUX">バグ、削除対象ゲームの追加依頼報告→:@omygTSUX</a></div>
 </footer>
 </body>
 </html>
