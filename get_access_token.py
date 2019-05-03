@@ -58,7 +58,7 @@ def check_token():
         db_url = os.environ['DATABASE_URL']
         conn = psycopg2.connect(db_url, sslmode='require')
         cur = conn.cursor()
-        cur.execute("insert into token values (%s, %s)", (oauth_token, oauth_token_secret))
+        cur.execute("insert into token (access_token, access_token_secret) values (%s, %s)", (oauth_token, oauth_token_secret))
         return render_template('cer.html', url="NoNeed", oauth_token=oauth_token, oauth_token_secret=oauth_token_secret)
     else:
         # リクエストトークンを取得する
