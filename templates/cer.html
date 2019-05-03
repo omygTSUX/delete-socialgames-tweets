@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width">
 </head>
 <body>
-  <p id="ot"></p>
-  <p id="ots"></p>
+  <p id="text"></p>
+  <p id="search_words"></p>
 <script>
 url = "{{url}}"
 //認証していない場合は認証ページへ飛ばす
@@ -23,8 +23,8 @@ else{
   }
   //トークン取得出来たら表示
   else{
-    document.getElementById("ot").innerHTML = "oauth_token: " + ot
-    document.getElementById("ots").innerHTML ="oauth_token_secret: "+ots
+    document.getElementById("text").innerHTML = "認証成功、現在の削除ワードは以下のものです。手動のツイートも削除するので注意してください。"
+    document.getElementById("search_words").innerHTML = "「スマホRPG」、「参加者募集」"
   }
 }
 </script>
