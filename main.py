@@ -3,7 +3,7 @@ import json
 import os
 import sys
 from requests_oauthlib import OAuth1Session
-import psycopg2
+import psycopg2.extras
 
 
 def main():
@@ -11,11 +11,11 @@ def main():
     cs = os.environ['CONSUMER_SECRET']
     db_url = os.environ['DATABASE_URL']
     conn = psycopg2.connect(db_url, sslmode='require')
-    cur = conn.cursor()
+    cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
     cur.execute("select * from token")
     for row in cur:
-        at = row[1]
-        ats = row[2]
+        at = row['access_token']
+        ats = row['access_token_secret']
         session = OAuth1Session(ck, cs, at, ats)
         screen_name = get_user_screen_name(session)
 
