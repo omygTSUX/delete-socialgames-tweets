@@ -17,16 +17,16 @@ def main():
         at = row['access_token']
         ats = row['access_token_secret']
         session = OAuth1Session(ck, cs, at, ats)
-        if session.authorized:
-            screen_name = get_user_screen_name(session)
-            print(screen_name)
-
-            # result = search(screen_name, search_words, session)
-            # delete_auto_tweets(result, session)
-            tweets = get_timeline(session)
-            # delete_gbf_tweets(tweets, session)
-            delete_selected_tweets(tweets, session)
-            # post_tweet("テスト", session)
+        screen_name = get_user_screen_name(session)
+        if screen_name is None:
+            continue
+        print(screen_name)
+        # result = search(screen_name, search_words, session)
+        # delete_auto_tweets(result, session)
+        tweets = get_timeline(session)
+        # delete_gbf_tweets(tweets, session)
+        delete_selected_tweets(tweets, session)
+        # post_tweet("テスト", session
     conn.commit()
 
 
@@ -59,7 +59,7 @@ def get_user_screen_name(session):
         return user_info['screen_name']
     else:
         print("ERROR: %d" % req.status_code)
-        exit()
+        return
 
 
 # 自分のツイート取得
