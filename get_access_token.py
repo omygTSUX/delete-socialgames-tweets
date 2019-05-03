@@ -58,7 +58,7 @@ def check_token():
         db_url = os.environ['DATABASE_URL']
         conn = psycopg2.connect(db_url, sslmode='require')
         cur = conn.cursor()
-        cur.execute("insert into token (access_token, access_token_secret) values (%s, %s)", (oauth_token, oauth_token_secret))
+        cur.execute("insert into token (access_token, access_token_secret) values (%s, %s) on conflict do nothing", (oauth_token, oauth_token_secret))
         conn.commit()
         return render_template('cer.html', url="NoNeed")
     else:
