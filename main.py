@@ -14,17 +14,16 @@ def main():
     cur = conn.cursor()
     cur.execute("select * from token")
     for row in cur:
-        print(row)
-    at = os.environ['ACCESS_TOKEN']
-    ats = os.environ['ACCESS_TOKEN_SECRET']
-    my_id = os.environ['MY_ID']
-    my_session = OAuth1Session(ck, cs, at, ats)
+        at = row[1]
+        ats = row[2]
+        session = OAuth1Session(ck, cs, at, ats)
+        screen_name = get_user_screen_name(session)
 
-    result = search(my_id, search_words, my_session)
-    delete_auto_tweets(result, my_session)
-    tweets = get_timeline(my_session)
-    delete_gbf_tweets(tweets, my_session)
-    # post_tweet("テスト", my_session)
+        result = search(screen_name, search_words, session)
+        delete_auto_tweets(result, session)
+        tweets = get_timeline(session)
+        delete_gbf_tweets(tweets, session)
+        # post_tweet("テスト", my_session)
 
 
 # ツイート検索
@@ -44,6 +43,19 @@ def search(id_str, words, session):
         else:
             print("ERROR: %d" % req.status_code)
     return search_result
+
+
+# ユーザーのスクリーンネーム取得
+def get_user_screen_name(session):
+    url = "https://api.twitter.com/1.1/account/verify_credentials.json"
+    req = session.get(url)
+
+    if req.status_code == 200:
+        user_info = json.loads(req.text)
+        return user_info['screen_name']
+    else:
+        print("ERROR: %d" % req.status_code)
+        exit()
 
 
 # 自分のツイート取得
