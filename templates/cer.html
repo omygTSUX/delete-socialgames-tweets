@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<title>ツイッター認証デモページ</title>
+<title>ツイッター認証ページ</title>
 <meta name="viewport" content="width=device-width">
 </head>
 <body>
@@ -11,21 +11,12 @@
 url = "{{url}}"
 //認証していない場合は認証ページへ飛ばす
 if(url != "NoNeed"){
-  location.href=url
+    location.href=url
 }
 //認証している場合
 else{
-  ot = "{{oauth_token}}"
-  ots ="{{oauth_token_secret}}"
-  //トークン取得できなかったらとりあえずトップページに戻す
-  if(ot=="failed"&&ots=="failed"){
-    location.href="" //各自設定する
-  }
-  //トークン取得出来たら表示
-  else{
     document.getElementById("text").innerHTML = "認証成功、現在の削除ワードは以下のものです。手動のツイートも削除するので注意してください。"
     document.getElementById("search_words").innerHTML = "「スマホRPG」、「参加者募集」"
-  }
 }
 </script>
 <footer>

@@ -60,7 +60,7 @@ def check_token():
         cur = conn.cursor()
         cur.execute("insert into token (access_token, access_token_secret) values (%s, %s)", (oauth_token, oauth_token_secret))
         conn.commit()
-        return render_template('cer.html', url="NoNeed", oauth_token=oauth_token, oauth_token_secret=oauth_token_secret)
+        return render_template('cer.html', url="NoNeed")
     else:
         # リクエストトークンを取得する
         request_token = get_request_token()
