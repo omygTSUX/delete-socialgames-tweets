@@ -85,7 +85,7 @@ def delete_gbf_tweets(tweets, session):
 def delete_auto_tweets(result, session):
     for tweets in result:
         for tweet in tweets['statuses']:
-            print(tweet)
+            print(tweet['text'])
             delete_tweet(tweet, session)
 
 
