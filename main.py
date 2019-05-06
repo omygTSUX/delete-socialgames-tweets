@@ -17,7 +17,7 @@ def main():
         status_code, screen_name = get_user_screen_name(session)
         if screen_name is None:
             if status_code == 401:
-                cur_update.execute("delete from token where id = %s", row['id'])
+                cur_update.execute("delete from token where id = %s", (row['id'],))
             continue
         cur_update.execute("update token set screen_name = %s where id = %s", (screen_name, row['id']))
         # result = search(screen_name, search_words, session)
