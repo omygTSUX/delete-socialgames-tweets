@@ -21,7 +21,6 @@ def main():
         screen_name = get_user_screen_name(session)
         if screen_name is None:
             continue
-        print(screen_name)
         cur2.execute("update token set screen_name = %s where id = %s", (screen_name, row['id']))
         # result = search(screen_name, search_words, session)
         # delete_auto_tweets(result, session)
@@ -30,7 +29,7 @@ def main():
         delete_selected_tweets(tweets, session)
         # post_tweet("テスト", session
     conn.commit()
-
+    conn.close()
 
 # ツイート検索
 def search(id_str, words, session):
