@@ -7,17 +7,17 @@ import psycopg2.extras
 
 
 def main():
-    cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
-    cur2 = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
-    cur.execute("select * from token")
-    for row in cur:
+    cur_select = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+    cur_update = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+    cur_select.execute("select * from token")
+    for row in cur_select:
         at = row['access_token']
         ats = row['access_token_secret']
         session = OAuth1Session(ck, cs, at, ats)
         screen_name = get_user_screen_name(session)
         if screen_name is None:
             continue
-        cur2.execute("update token set screen_name = %s where id = %s", (screen_name, row['id']))
+        cur_update.execute("update token set screen_name = %s where id = %s", (screen_name, row['id']))
         # result = search(screen_name, search_words, session)
         # delete_auto_tweets(result, session)
         tweets = get_timeline(session)
@@ -26,6 +26,7 @@ def main():
         # post_tweet("テスト", session
     conn.commit()
     conn.close()
+
 
 # ツイート検索
 def search(id_str, words, session):
