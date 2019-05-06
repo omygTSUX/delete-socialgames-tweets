@@ -14,8 +14,10 @@ def main():
         at = row['access_token']
         ats = row['access_token_secret']
         session = OAuth1Session(ck, cs, at, ats)
-        screen_name = get_user_screen_name(session)
+        status_code, screen_name = get_user_screen_name(session)
         if screen_name is None:
+            if status_code == 401:
+                cur_update.execute("delete from token where id = %s", row['id'])
             continue
         cur_update.execute("update token set screen_name = %s where id = %s", (screen_name, row['id']))
         # result = search(screen_name, search_words, session)
@@ -51,13 +53,12 @@ def search(id_str, words, session):
 def get_user_screen_name(session):
     url = "https://api.twitter.com/1.1/account/verify_credentials.json"
     req = session.get(url)
-
     if req.status_code == 200:
         user_info = json.loads(req.text)
-        return user_info['screen_name']
+        return req.status_code, user_info['screen_name']
     else:
         print("ERROR: %d" % req.status_code)
-        return
+        return req.status_code, None
 
 
 # 自分のツイート取得
