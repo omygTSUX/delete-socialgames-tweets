@@ -7,10 +7,6 @@ import psycopg2.extras
 
 
 def main():
-    ck = os.environ['CONSUMER_KEY']
-    cs = os.environ['CONSUMER_SECRET']
-    db_url = os.environ['DATABASE_URL']
-    conn = psycopg2.connect(db_url, sslmode='require')
     cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
     cur2 = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
     cur.execute("select * from token")
@@ -152,4 +148,8 @@ if __name__ == "__main__":
     search_words, source_strings = read_search_words(words_txt_path)
     print(search_words)
     print(source_strings)
+    ck = os.environ['CONSUMER_KEY']
+    cs = os.environ['CONSUMER_SECRET']
+    db_url = os.environ['DATABASE_URL']
+    conn = psycopg2.connect(db_url, sslmode='require')
     main()
