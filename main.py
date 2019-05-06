@@ -25,7 +25,7 @@ def main():
         tweets = get_timeline(session)
         # delete_gbf_tweets(tweets, session)
         delete_selected_tweets(tweets, session)
-        # post_tweet("テスト", session
+        # post_tweet("テスト", session)
     conn.commit()
     conn.close()
 
@@ -55,6 +55,7 @@ def get_user_screen_name(session):
     req = session.get(url)
     if req.status_code == 200:
         user_info = json.loads(req.text)
+        print(user_info['screen_name'])
         return req.status_code, user_info['screen_name']
     else:
         print("ERROR: %d" % req.status_code)
