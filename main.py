@@ -23,8 +23,8 @@ def main():
         # result = search(screen_name, search_words, session)
         # delete_auto_tweets(result, session)
         tweets = get_timeline(session)
-        # delete_gbf_tweets(tweets, session)
-        delete_selected_tweets(tweets, session)
+        delete_gbf_tweets(tweets, session)
+        # delete_selected_tweets(tweets, session)
         # post_tweet("テスト", session)
     conn.commit()
     conn.close()
@@ -81,7 +81,11 @@ def get_timeline(session):
 def delete_gbf_tweets(tweets, session):
     for tweet in tweets:
         if tweet['source'] in source_strings:
-            delete_tweet(tweet, session)
+            for word in search_words:
+                if word in tweet['text']:
+                    print(tweet['text'])
+                    delete_tweet(tweet, session)
+                    break
 
 
 # 対象文字列が含まれるツイートを削除
