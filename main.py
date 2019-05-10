@@ -151,12 +151,21 @@ def read_search_words(txt_path):
 
 
 if __name__ == "__main__":
+    # 手元かどうか判定
+    if len(sys.argv) > 2:
+        import config
+        ck = config.CONSUMER_KEY
+        cs = config.CONSUMER_SECRET
+        conn = psycopg2.connect("dbname=%s host=localhost user=%s" % (config.DB_NAME, config.DB_USER))
+    else:
+        ck = os.environ['CONSUMER_KEY']
+        cs = os.environ['CONSUMER_SECRET']
+        db_url = os.environ['DATABASE_URL']
+        conn = psycopg2.connect(db_url, sslmode='require')
+
     words_txt_path = sys.argv[1]
     search_words, source_strings = read_search_words(words_txt_path)
     print(search_words)
     print(source_strings)
-    ck = os.environ['CONSUMER_KEY']
-    cs = os.environ['CONSUMER_SECRET']
-    db_url = os.environ['DATABASE_URL']
-    conn = psycopg2.connect(db_url, sslmode='require')
+
     main()
