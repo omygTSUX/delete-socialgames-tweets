@@ -25,7 +25,8 @@ def main():
         tweets = get_timeline(session)
         delete_gbf_tweets(tweets, session)
         # delete_selected_tweets(tweets, session)
-        # post_tweet("テスト", session)
+        if screen_name == owner:
+            post_tweet("削除成功", session)
     conn.commit()
     conn.close()
 
@@ -165,6 +166,7 @@ if __name__ == "__main__":
 
     words_txt_path = sys.argv[1]
     search_words, source_strings = read_search_words(words_txt_path)
+    owner = 'gikolarge'
     print(search_words)
     print(source_strings)
 
