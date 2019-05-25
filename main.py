@@ -135,7 +135,7 @@ def post_tweet(sentence, session):
 
 # 削除確認ツイートをする
 def post_check_tweet(session):
-    post_tweet("削除成功" + str(datetime.datetime.today()), session)
+    post_tweet("削除成功 at " + str(datetime.datetime.today()), session)
 
 
 # 検索文字列ファイルの読み込み
