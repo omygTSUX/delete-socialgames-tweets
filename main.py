@@ -4,6 +4,7 @@ import os
 import sys
 from requests_oauthlib import OAuth1Session
 import psycopg2.extras
+import datetime
 
 
 def main():
@@ -26,7 +27,8 @@ def main():
         delete_gbf_tweets(tweets, session)
         # delete_selected_tweets(tweets, session)
         if screen_name == owner:
-            post_tweet("削除成功", session)
+            post_check_tweet(session)
+
     conn.commit()
     conn.close()
 
@@ -129,6 +131,11 @@ def post_tweet(sentence, session):
         print("Succeed!")
     else:
         print("ERROR : %d" % req.status_code)
+
+
+# 削除確認ツイートをする
+def post_check_tweet(session):
+    post_tweet("削除成功" + str(datetime.datetime.today()), session)
 
 
 # 検索文字列ファイルの読み込み
